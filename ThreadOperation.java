@@ -21,38 +21,38 @@ public class ThreadOperation extends Thread
         int middleRow = rows / 2;
         int middleCol = columns / 2;
 
-        int rowStart, rowEnd, colStart, colEnd;
+        int rowStart, rowEnd, colStart, colEnd = 0;
 
         if(quadrant.equals("upper left")) 
         {
             rowStart = 0;
-            rowEnd = middleRow - 1;
+            rowEnd = middleRow;
             colStart = 0;
-            colEnd = middleCol - 1;
+            colEnd = middleCol;
         }
 
         else if(quadrant.equals("upper right"))
         {
             rowStart = 0;
-            rowEnd = middleRow - 1;
+            rowEnd = middleRow;
             colStart = middleCol;
-            colEnd = columns - 1;
+            colEnd = columns;
         }
         
         else if(quadrant.equals("lower left"))
         {
             rowStart = middleRow;
-            rowEnd = rows - 1;
+            rowEnd = rows;
             colStart = 0;
-            colEnd = middleCol -1;
+            colEnd = middleCol;
         }   
         
         else //lower right
         {
             rowStart = middleRow;
-            rowEnd = rows - 1;
+            rowEnd = rows;
             colStart = middleCol;
-            colEnd = columns - 1;
+            colEnd = columns;
         }
 
         return new int[] {rowStart, rowEnd, colStart, colEnd};
@@ -72,9 +72,9 @@ public class ThreadOperation extends Thread
         int colEnd = index[3];
 
 
-        for(int i = rowStart; i <= rowEnd; i++)
+        for(int i = rowStart; i < rowEnd; i++)
         {
-            for(int j = colStart; j <= colEnd; j++)
+            for(int j = colStart; j < colEnd; j++)
             {
                 int result = matrixA[i][j] + matrixB[i][j];
                 matrixC[i][j] = result;
@@ -82,7 +82,7 @@ public class ThreadOperation extends Thread
             }    
         }  
         //test to see if threads were done 
-        //System.out.println("Thread " + quadrant + " done\n");
+        //System.out.println("Thread " + quadrant + " done");
     }
 }
  

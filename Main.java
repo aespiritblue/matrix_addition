@@ -25,6 +25,11 @@ Angelo Espiritu
 Purpose: To create a threaded matrix addition program
 Sources: 
 https://stackoverflow.com/questions/55285990/dividing-matrix-into-four-sub-blocks
+https://stackoverflow.com/questions/5463781/java-how-to-split-a-2d-array-into-two-2d-arrays
+https://www.geeksforgeeks.org/java/multithreading-in-java/
+https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html
+https://docs.oracle.com/javase/tutorial/essential/concurrency/runthread.html
+https://stackoverflow.com/questions/36381153/adding-java-2d-arrays
 */
 import java.io.IOException;
 import java.io.File;
@@ -104,7 +109,7 @@ public class Main
         {
             for(int j = 0; j < matrix[0].length; j++)
             {
-                System.out.printf("%2d",matrix[i][j]);
+                System.out.printf("%5d",matrix[i][j]);
             }
             System.out.println();    
         }    
