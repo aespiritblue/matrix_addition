@@ -15,7 +15,7 @@ public class ThreadOperation extends Thread
         this.quadrant = quadrant;
     }
 
-    //we need to split the matrix into quadrants
+    //start here,we need to split the matrix into quadrants
     public static int[] getQuadrantIndexes(int rows, int columns, String quadrant)
     {
         int middleRow = rows / 2;
@@ -25,22 +25,34 @@ public class ThreadOperation extends Thread
 
         if(quadrant.equals("upper left")) 
         {
-
+            rowStart = 0;
+            rowEnd = middleRow - 1;
+            colStart = 0;
+            colEnd = middleCol - 1;
         }
 
         else if(quadrant.equals("upper right"))
         {
-
+            rowStart = 0;
+            rowEnd = middleRow - 1;
+            colStart = middleCol;
+            colEnd = columns - 1;
         }
         
         else if(quadrant.equals("lower left"))
         {
-
+            rowStart = middleRow;
+            rowEnd = rows - 1;
+            colStart = 0;
+            colEnd = middleCol -1;
         }   
         
         else //lower right
         {
-
+            rowStart = middleRow;
+            rowEnd = rows - 1;
+            colStart = middleCol;
+            colEnd = columns - 1;
         }
 
         return new int[] {rowStart, rowEnd, colStart, colEnd};
@@ -52,7 +64,25 @@ public class ThreadOperation extends Thread
         int rows = matrixA.length;
         int cols = matrixA[0].length;
 
-        int[] idx = getQuadrantIndexes(rows, cols, quadrant);
+        int[] index = getQuadrantIndexes(rows, cols, quadrant);
+
+        int rowStart = index[0];
+        int rowEnd = index[1];
+        int colStart = index[2];
+        int colEnd = index[3];
+
+
+        for(int i = rowStart; i <= rowEnd; i++)
+        {
+            for(int j = colStart; j <= colEnd; j++)
+            {
+                int result = matrixA[i][j] + matrixB[i][j];
+                matrixC[i][j] = result;
+
+            }    
+        }  
+        //test to see if threads were done 
+        //System.out.println("Thread " + quadrant + " done\n");
     }
 }
  

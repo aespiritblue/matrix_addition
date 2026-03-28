@@ -18,10 +18,17 @@ multi-threading.
 
 Multi-threading minimizes resource usage by allowing multiple threads to share the same space in memory. 
 This allows multiple processes to happen when running the program without having to resorting to having to having to "eat up" all the memory.
-It also takes advantage of multicore processors by running threads in parallel without the overhead of creating separate processes, which makes execution of programs more efficient.
+*/
+/*
+Angelo Espiritu
+2/7/2026
+Purpose: To create a threaded matrix addition program
+Sources: 
+https://stackoverflow.com/questions/55285990/dividing-matrix-into-four-sub-blocks
 */
 import java.io.IOException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main
@@ -38,7 +45,55 @@ public class Main
         };
 		print2dArray(testMatrix);
 		*/
-		
+		try
+		{
+			Scanner fileReader = new Scanner(new File(args[0])); //reads in from command line
+			int rows = fileReader.nextInt();
+			int cols = fileReader.nextInt();
+
+			int[][] matrixA = matrixFromFile(rows, cols, fileReader);
+			int[][] matrixB = matrixFromFile(rows, cols, fileReader);
+			int[][] matrixC = new int[rows][cols];
+
+			//make sure that input matrices print and are read in
+			System.out.println("Matrix A");
+			print2dArray(matrixA);
+
+			System.out.println("Matrix B");
+			print2dArray(matrixB);
+
+			//instatiate threads
+			ThreadOperation T1 = new ThreadOperation(matrixA, matrixB, matrixC, "upper left");
+			ThreadOperation T2 = new ThreadOperation(matrixA, matrixB, matrixC, "upper right");
+			ThreadOperation T3 = new ThreadOperation(matrixA, matrixB, matrixC, "lower left");
+			ThreadOperation T4 = new ThreadOperation(matrixA, matrixB, matrixC, "lower right");
+
+			//start threads
+			T1.start();
+			T2.start();
+			T3.start();
+			T4.start();
+			try
+			{
+				//wait for all threads
+				T1.join();
+				T2.join();
+				T3.join();
+				T4.join();
+			}
+			catch(InterruptedException e)
+			{
+				System.out.println(e);
+			}
+			fileReader.close(); //close scanner
+
+			System.out.println("Added array");
+			print2dArray(matrixC);
+		}
+		catch(IOException e)
+		{
+			System.out.println(e);
+		}
 		
 	}
 
@@ -49,7 +104,7 @@ public class Main
         {
             for(int j = 0; j < matrix[0].length; j++)
             {
-                System.out.printf(matrix[i][j] + "\t");
+                System.out.printf("%2d",matrix[i][j]);
             }
             System.out.println();    
         }    
@@ -57,10 +112,19 @@ public class Main
 	}
 
 	//converts file to 2d int array
-	public static int[][] matrixFromFile(int rows, int columns, Scanner file_reader)
+	public static int[][] matrixFromFile(int rows, int columns, Scanner fileReader)
 	{
-		return null; //TODO: fill this in
+		int[][] matrix = new int[rows][columns];
+
+		for(int i = 0; i < rows; i++)
+		{
+			for(int j = 0; j < columns; j++)
+			{
+				matrix[i][j] = fileReader.nextInt();
+			}	
+		}	
 		
+		return matrix;
 	}
 
 
