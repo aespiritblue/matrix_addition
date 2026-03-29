@@ -23,7 +23,7 @@ This allows multiple processes to happen when running the program without having
 Angelo Espiritu
 2/7/2026
 Purpose: To create a threaded matrix addition program
-Sources: 
+Sources: https://www.geeksforgeeks.org/java/java-program-to-add-two-matrices/
 https://stackoverflow.com/questions/55285990/dividing-matrix-into-four-sub-blocks
 https://stackoverflow.com/questions/5463781/java-how-to-split-a-2d-array-into-two-2d-arrays
 https://www.geeksforgeeks.org/java/multithreading-in-java/
@@ -52,12 +52,18 @@ public class Main
 		*/
 		try
 		{
+			//reads file (copy and pasted from hr assignment)
 			Scanner fileReader = new Scanner(new File(args[0])); //reads in from command line
+
+			//reads in rows and cols from the header
 			int rows = fileReader.nextInt();
 			int cols = fileReader.nextInt();
 
+			//reads in matrix A and B
 			int[][] matrixA = matrixFromFile(rows, cols, fileReader);
 			int[][] matrixB = matrixFromFile(rows, cols, fileReader);
+
+			//creates the matrix we will store our results in
 			int[][] matrixC = new int[rows][cols];
 
 			//make sure that input matrices print and are read in
@@ -92,6 +98,7 @@ public class Main
 			}
 			fileReader.close(); //close scanner
 
+			//output of added array
 			System.out.println("Added array");
 			print2dArray(matrixC);
 		}
@@ -103,6 +110,7 @@ public class Main
 	}
 
 	//taken straight out of my sparse array assignment
+	//prints a 2D array
 	public static void print2dArray(int[][] matrix)
 	{
 		for(int i = 0; i < matrix.length; i++)
@@ -116,7 +124,7 @@ public class Main
         System.out.println();
 	}
 
-	//converts file to 2d int array
+	//reads in file and turns it into 2d int array
 	public static int[][] matrixFromFile(int rows, int columns, Scanner fileReader)
 	{
 		int[][] matrix = new int[rows][columns];
