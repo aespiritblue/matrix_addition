@@ -30,6 +30,7 @@ https://www.geeksforgeeks.org/java/multithreading-in-java/
 https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html
 https://docs.oracle.com/javase/tutorial/essential/concurrency/runthread.html
 https://stackoverflow.com/questions/36381153/adding-java-2d-arrays
+And again, my friend Ethan Lin helped me out with this one
 */
 import java.io.IOException;
 import java.io.File;
